@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 
@@ -45,11 +46,11 @@ USD       = data['rates']['USD']
 timestamp = data['timestamp']
 date      = datetime.utcfromtimestamp(timestamp) - timedelta(hours=3) 
 
-dateFormat = date.strftime('%d/%m/%Y %H:%M')
+dateFormat = date.strftime('%H:%M %d/%m/%Y')
 
 rate =  ARS / USD
 
 print(round(rate, 4))
 
-api.update_status(status='Si, ahora esta $'+str(round(rate, 4))+' ('+dateFormat+')')
+api.update_status(status='Sí, ahora está $'+str(round(rate, 4))+' ('+dateFormat+')')
 

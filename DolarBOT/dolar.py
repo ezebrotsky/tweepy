@@ -1,4 +1,5 @@
 from __future__ import absolute_import, print_function
+from datetime import datetime, timedelta
 
 import tweepy, urllib, json
 
@@ -39,10 +40,16 @@ url      = "http://data.fixer.io/api/latest?access_key="+key+"&symbols=ARS,USD"
 response = urllib.urlopen(url)
 data     = json.loads(response.read())
 
-ARS = data['rates']['ARS']
-USD = data['rates']['USD']
+ARS       = data['rates']['ARS']
+USD       = data['rates']['USD']
+timestamp = data['timestamp']
+date      = datetime.utcfromtimestamp(timestamp) - timedelta(hours=3) 
+
+dateFormat = date.strftime('%d/%m/%Y %H:%M')
 
 rate =  ARS / USD
 
 print(round(rate, 4))
+
+api.update_status(status='Si, ahora esta $'+str(round(rate, 4))+' ('+dateFormat+')')
 

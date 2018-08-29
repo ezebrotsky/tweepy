@@ -27,7 +27,7 @@ api = tweepy.API(auth)
 
 # If the authentication was successful, you should
 # see the name of the account print out
-print(api.me().name)
+#print(api.me().name)
 
 # If the application settings are set for "Read and Write" then
 # this line should tweet out the message to your account's
@@ -52,5 +52,5 @@ rate =  ARS / USD
 
 print(round(rate, 4))
 
-api.update_status(status='Sí, ahora está $'+str(round(rate, 4))+' ('+dateFormat+')')
+api.update_status(status='Sí/No, ahora está $'+str(round(rate, 4))+' ('+dateFormat+')')
 

@@ -67,11 +67,31 @@ mycursor.execute("CREATE TABLE IF NOT EXISTS rates (id INT AUTO_INCREMENT PRIMAR
 sql = "INSERT INTO rates (date, rate) VALUES (%s, %s)"
 val = (date, rate)
 
-mycursor.execute(sql, val)
+#mycursor.execute(sql, val)
 
 mydb.commit()
 
 print(mycursor.rowcount, "record inserted.")
 
-api.update_status(status='Ahora está $'+str(round(rate, 4))+' \n\n(Actualizado: '+dateFormat+')')
+# SELECCIONA EL ULTIMO VALOR DE CADA DIA
+mycursor.execute("select date, rate from rates inner join ( select max(date) as max from rates group by date(date) ) rates2 on rates.date = rates2.max order by date desc;")
+result = mycursor.fetchall()
+
+items = []
+for x in result:
+	items.append({'date': x[0], 'rate': x[1]})
+
+subio = "No"
+if items[0]['rate'] < items[1]['rate']:
+	print("La de hoy es menor que la de ayer")
+else:
+	subio = "Sí"
+	print("La de hoy es mayor que la de ayer")
+
+variacion = ((items[0]['rate'] - items[1]['rate']) / items[1]['rate']) * 100
+
+#print(variacion)
+#print(items)
+
+api.update_status(status=subio+', ahora está $'+str(round(rate, 4))+' \nVarió %'+str(round(variacion, 2))+' con respecto al cierre de ayer \n\n(Actualizado: '+dateFormat+')')
 

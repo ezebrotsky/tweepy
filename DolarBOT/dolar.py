@@ -67,7 +67,7 @@ mycursor.execute("CREATE TABLE IF NOT EXISTS rates (id INT AUTO_INCREMENT PRIMAR
 sql = "INSERT INTO rates (date, rate) VALUES (%s, %s)"
 val = (date, rate)
 
-#mycursor.execute(sql, val)
+mycursor.execute(sql, val)
 
 mydb.commit()
 

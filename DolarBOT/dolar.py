@@ -52,5 +52,5 @@ rate =  ARS / USD
 
 print(round(rate, 4))
 
-api.update_status(status='Sí/No, ahora está $'+str(round(rate, 4))+' \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status='Ahora está $'+str(round(rate, 4))+' \n\n(Actualizado: '+dateFormat+')')
 

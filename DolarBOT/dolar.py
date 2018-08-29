@@ -93,5 +93,5 @@ variacion = ((items[0]['rate'] - items[1]['rate']) / items[1]['rate']) * 100
 #print(variacion)
 #print(items)
 
-api.update_status(status=subio+', ahora está $'+str(round(rate, 4))+' \nVarió %'+str(round(variacion, 2))+' con respecto al cierre de ayer \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status=subio+', ahora está $'+str(round(rate, 4))+' \nVarió '+str(round(variacion, 2))+'% con respecto al cierre de ayer \n\n(Actualizado: '+dateFormat+')')
 

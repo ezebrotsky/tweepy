@@ -2,7 +2,7 @@
 from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 
-import tweepy, urllib, json
+import tweepy, urllib, json, mysql.connector
 
 # == OAuth Authentication ==
 #
@@ -51,6 +51,27 @@ dateFormat = date.strftime('%H:%M %d/%m/%Y')
 rate =  ARS / USD
 
 print(round(rate, 4))
+
+# GUARDA EN LA BD
+mydb = mysql.connector.connect(
+	host = "localhost",
+	user = "root",
+	passwd = "root",
+	database = "DolarBOT"
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE TABLE IF NOT EXISTS rates (id INT AUTO_INCREMENT PRIMARY KEY, date DATETIME, rate FLOAT)")
+
+sql = "INSERT INTO rates (date, rate) VALUES (%s, %s)"
+val = (date, rate)
+
+mycursor.execute(sql, val)
+
+mydb.commit()
+
+print(mycursor.rowcount, "record inserted.")
 
 api.update_status(status='Ahora está $'+str(round(rate, 4))+' \n\n(Actualizado: '+dateFormat+')')
 

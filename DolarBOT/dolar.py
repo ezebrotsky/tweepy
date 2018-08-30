@@ -73,7 +73,20 @@ mydb.commit()
 
 print(mycursor.rowcount, "record inserted.")
 
-# SELECCIONA EL ULTIMO VALOR DE CADA DIA
+# COMPARA EL ULTIMO TWEET CON EL ANTERIOR PARA VER SI SUBIO O NO
+mycursor.execute("select date, rate from rates order by id desc limit 2")
+result2 = mycursor.fetchall()
+
+items2 = []
+for y in result2:
+        items2.append({'date': y[0], 'rate': y[1]})
+
+if items2[0]['rate'] < items2[1]['rate']:
+        subio = "No"
+else:
+        subio = "Sí"
+
+# SELECCIONA EL ULTIMO VALOR DE CADA DIA PARA HACER LA VARIACION PORCENTUAL
 mycursor.execute("select date, rate from rates inner join ( select max(date) as max from rates group by date(date) ) rates2 on rates.date = rates2.max order by date desc;")
 result = mycursor.fetchall()
 
@@ -81,11 +94,9 @@ items = []
 for x in result:
 	items.append({'date': x[0], 'rate': x[1]})
 
-subio = "No"
 if items[0]['rate'] < items[1]['rate']:
 	print("La de hoy es menor que la de ayer")
 else:
-	subio = "Sí"
 	print("La de hoy es mayor que la de ayer")
 
 variacion = ((items[0]['rate'] - items[1]['rate']) / items[1]['rate']) * 100
@@ -93,5 +104,5 @@ variacion = ((items[0]['rate'] - items[1]['rate']) / items[1]['rate']) * 100
 #print(variacion)
 #print(items)
 
-api.update_status(status=subio+', ahora está $'+str(round(rate, 4))+' \nVarió '+str(round(variacion, 2))+'% con respecto al cierre de ayer \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status=subio+' desde el último Tweet, ahora está $'+str(round(rate, 4))+'. \nVarió '+str(round(variacion, 2))+'% con respecto al cierre de ayer. \n\n(Actualizado: '+dateFormat+')')
 

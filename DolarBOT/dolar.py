@@ -30,9 +30,6 @@ api = tweepy.API(auth)
 #print(api.me().name)
 
 # If the application settings are set for "Read and Write" then
-# this line should tweet out the message to your account's
-# timeline. The "Read and Write" setting is on https://dev.twitter.com/apps
-#api.update_status(status='Updating using OAuth authentication via Tweepy!')
 
 # API Core
 
@@ -81,7 +78,7 @@ items2 = []
 for y in result2:
         items2.append({'date': y[0], 'rate': y[1]})
 
-if items2[0]['rate'] < items2[1]['rate']:
+if round(items2[0]['rate'], 3) < round(items2[1]['rate'], 3):
         subio = "No"
 else:
         subio = "Sí"
@@ -94,15 +91,15 @@ items = []
 for x in result:
 	items.append({'date': x[0], 'rate': x[1]})
 
-if items[0]['rate'] < items[1]['rate']:
+if round(items[0]['rate'], 3) < round(items[1]['rate'], 3):
 	print("La de hoy es menor que la de ayer")
 else:
 	print("La de hoy es mayor que la de ayer")
 
-variacion = ((items[0]['rate'] - items[1]['rate']) / items[1]['rate']) * 100
+variacion = ((round(items[0]['rate'], 3) - round(items[1]['rate'])) / round(items[1]['rate'])) * 100
 
 #print(variacion)
 #print(items)
 
-api.update_status(status=subio+' desde el último Tweet, ahora está $'+str(round(rate, 4))+'. \nVarió '+str(round(variacion, 2))+'% con respecto al cierre de ayer. \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status=subio+' desde el último Tweet, ahora está $'+str(round(rate, 3))+'. \nVarió '+str(round(variacion, 2))+'% con respecto al cierre de ayer. \n\n(Actualizado: '+dateFormat+')')
 

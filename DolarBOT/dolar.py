@@ -78,7 +78,7 @@ items2 = []
 for y in result2:
         items2.append({'date': y[0], 'rate': y[1]})
 
-if round(items2[0]['rate'], 3) < round(items2[1]['rate'], 3):
+if round(items2[0]['rate'], 3) <= round(items2[1]['rate'], 3):
         subio = "No"
 else:
         subio = "Sí"

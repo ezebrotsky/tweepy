@@ -101,7 +101,7 @@ if round(items[0]['rate'], 3) < round(items[1]['rate'], 3):
 else:
 	print("La de hoy es mayor que la de ayer")
 
-variacion = ((round(items[0]['rate'], 3) - round(items[1]['rate'])) / round(items[1]['rate'])) * 100
+variacion = ((round(items[0]['rate'], 3) - round(items[1]['rate'], 3)) / round(items[1]['rate'], 3)) * 100
 
 if variacion > 0:
 	sign = "+"
@@ -111,6 +111,6 @@ else:
 #print(variacion)
 #print(items)
 
-api.update_status(status=mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status=mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 3))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
 #print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
 

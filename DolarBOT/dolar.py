@@ -80,8 +80,13 @@ for y in result2:
 
 if round(items2[0]['rate'], 3) <= round(items2[1]['rate'], 3):
         subio = "No"
+	mensaje = "No, desde el último Tweet bajó a"
+	
+	if round(items2[0]['rate'], 3) == round(items2[1]['rate'], 3):
+		mensaje = "No, desde el último Tweet se mantuvo en"
 else:
         subio = "Sí"
+	mensaje = "Sí, desde el último Tweet subió a"
 
 # SELECCIONA EL ULTIMO VALOR DE CADA DIA PARA HACER LA VARIACION PORCENTUAL
 mycursor.execute("select date, rate from rates inner join ( select max(date) as max from rates group by date(date) ) rates2 on rates.date = rates2.max order by date desc;")
@@ -98,8 +103,14 @@ else:
 
 variacion = ((round(items[0]['rate'], 3) - round(items[1]['rate'])) / round(items[1]['rate'])) * 100
 
+if variacion > 0:
+	sign = "+"
+else:
+	sign = ""
+
 #print(variacion)
 #print(items)
 
-api.update_status(status=subio+' desde el último Tweet, ahora está $'+str(round(rate, 3))+'. \nVarió '+str(round(variacion, 2))+'% con respecto al cierre de ayer. \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status=mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
+#print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
 

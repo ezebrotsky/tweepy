@@ -64,9 +64,9 @@ mycursor.execute("CREATE TABLE IF NOT EXISTS rates (id INT AUTO_INCREMENT PRIMAR
 sql = "INSERT INTO rates (date, rate) VALUES (%s, %s)"
 val = (date, rate)
 
-mycursor.execute(sql, val)
+#mycursor.execute(sql, val)
 
-mydb.commit()
+#mydb.commit()
 
 print(mycursor.rowcount, "record inserted.")
 
@@ -111,6 +111,6 @@ else:
 #print(variacion)
 #print(items)
 
-api.update_status(status=mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 3))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
-#print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
+#api.update_status(status=mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 3))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
+print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
 

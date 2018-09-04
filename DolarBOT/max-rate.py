@@ -42,7 +42,7 @@ mydb = mysql.connector.connect(
 )
 
 # SELECCIONA EL MAXIMO VALOR DEL DIA
-mycursor.execute("mycursor.execute("select date(date), max(rate) from rates group by date(date) order by date(date) desc limit 1;")
+mycursor.execute("select date(date), max(rate) from rates group by date(date) order by date(date) desc limit 1;")
 result = mycursor.fetchall()
 
 items = []

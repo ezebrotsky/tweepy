@@ -51,6 +51,7 @@ items = []
 for x in result:
 	items.append({'date': x[0], 'rate': x[1]})
 
-print('fecha'+items[date][0])
+mensaje = "El valor máximo que tomó el dólar hoy fue de $"+str(items[0]['rate'])
+#print(mensaje)
 
-#api.update_status()
+api.update_status(mensaje)

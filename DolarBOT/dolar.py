@@ -33,7 +33,7 @@ api = tweepy.API(auth)
 
 # API Core
 
-key      = "7dcae92e858e039cbaa9c3f2b58d49c3"
+key      = "82fc949924e0a8b25408bb7775a5cc74"
 url      = "http://data.fixer.io/api/latest?access_key="+key+"&symbols=ARS,USD"
 response = urllib.urlopen(url)
 data     = json.loads(response.read())

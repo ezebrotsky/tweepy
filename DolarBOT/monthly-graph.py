@@ -13,14 +13,14 @@ import plotly.io as pio
 
 # The consumer keys can be found on your application's Details
 # page located at https://dev.twitter.com/apps (under "OAuth settings")
-consumer_key="aMTwTJCOPjPjJQcgIS7VPTJIG"
-consumer_secret="8WQh12NTKbJfmWt2LuaojT8QXGEgBrA4v3fCCwHeXeN75ZXeiO"
+consumer_key="bUxH0cgHZNEaVVYkWnSwRGEat"
+consumer_secret="SDjn7TCSEn1RgGmnl5GSYkPqbCx75r0tIglrtqya79KzitgyjV"
 
 # The access tokens can be found on your applications's Details
 # page located at https://dev.twitter.com/apps (located
 # under "Your access token")
-access_token="1034524014478286849-aE0ax20mOESZ4XAxpiURH3e8gXxdTh"
-access_token_secret="tXJL3TlIWi2KCoGfWtD4qwNpz7UeNo7tYiEEyxPLglFC2"
+access_token="762291883-o6jZ4kAmT6lC33qJxKZiMddppAKlZSgKmsyiH0NH"
+access_token_secret="prxVwl5XasAPwWtyshd450peSSybZdDv76W3sSvBqGmQR"
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -71,7 +71,7 @@ trace1 = Scatter(
 	    )
 )
 layout = Layout(
-    title='Variación de '+str(datetime.now().strftime('%B')),
+    title='Seguimiento del precio del dólar durante el mes de '+str(datetime.now().strftime('%B')),
     xaxis=XAxis( type='date', title='Día' ),
     yaxis=YAxis( title='Valor ($ ARS)', automargin=True, range=[30, 42] ),
     height=500,
@@ -86,4 +86,5 @@ pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime(
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'
 
 #api.update_status(mensaje)
-print(mensaje)
+api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
+#print(mensaje)

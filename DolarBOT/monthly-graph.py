@@ -3,7 +3,8 @@ from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 from plotly.graph_objs import *
 
-import tweepy, urllib, json, mysql.connector, plotly.plotly as py, pandas as pd, locale
+import tweepy, urllib, json, mysql.connector, plotly.plotly as py, pandas as pd, locale, os, numpy as np
+import plotly.io as pio
 
 # == OAuth Authentication ==
 #
@@ -53,6 +54,9 @@ result = mycursor.fetchall()
 
 locale.setlocale(locale.LC_TIME, 'es_AR.utf8')
 
+if not os.path.exists('images'):
+    os.mkdir('images')
+
 df = pd.DataFrame( [[ij for ij in i] for i in result] )
 df.rename(columns={0: 'Date', 1: 'Rate'}, inplace=True);
 
@@ -69,14 +73,17 @@ trace1 = Scatter(
 layout = Layout(
     title='Variación de '+str(datetime.now().strftime('%B')),
     xaxis=XAxis( type='date', title='Día' ),
-    yaxis=YAxis( title='Valor', automargin=True ),
+    yaxis=YAxis( title='Valor ($ ARS)', automargin=True, range=[30, 42] ),
     height=500,
     width=850
 )
 data = Data([trace1])
 fig = Figure(data=data, layout=layout)
-py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
 
-mensaje = ""
+pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
+#py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
+
+mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'
 
 #api.update_status(mensaje)
+print(mensaje)

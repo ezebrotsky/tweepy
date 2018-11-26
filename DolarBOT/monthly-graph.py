@@ -32,7 +32,7 @@ api = tweepy.API(auth)
 #print(api.me().name)
 
 # TOKEN PLOTLY
-py.sign_in('ezebrotsky', 'mwFQHToLhWjR6tWF0y9A')
+py.sign_in('ezebrotsky', 'sm5sCxRO93WV1X5yAeUq')
 
 # If the application settings are set for "Read and Write" then
 

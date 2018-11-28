@@ -5,6 +5,8 @@ from plotly.graph_objs import *
 
 import tweepy, urllib, json, mysql.connector, plotly.plotly as py, pandas as pd, locale, os, numpy as np
 import plotly.io as pio
+import plotly.offline
+import plotly.graph_objs as go
 
 # == OAuth Authentication ==
 #
@@ -77,14 +79,36 @@ layout = Layout(
     height=500,
     width=850
 )
-data = Data([trace1])
-fig = Figure(data=data, layout=layout)
 
-pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
+plotly.offline.plot(
+    {"data": 
+        [go.Scatter(
+            x=pd.to_datetime(df['Date']),
+            y=df['Rate'],
+            mode='lines+markers',
+            line=dict(
+            shape='linear'
+            )
+        )],
+        "layout": go.Layout(
+            title='Seguimiento del precio del dólar durante el mes de '+str(datetime.now().strftime('%B')),
+            xaxis=XAxis( type='date', title='Día' ),
+            yaxis=YAxis( title='Valor ($ ARS)', automargin=True, range=[30, 42] ),
+            height=500,
+            width=850
+        )
+    },
+    image="png", image_filename="Monthly Graph - Mes: "+str(datetime.now().strftime('%m'))
+)
+
+#data = Data([trace1])
+#fig = Figure(data=data, layout=layout)
+
+#pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
 
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'
 
 #api.update_status(mensaje)
-api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
+#api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
 #print(mensaje)

@@ -98,7 +98,7 @@ plotly.offline.plot(
             width=850
         )
     },
-    image="png", image_filename="Monthly Graph - Mes: "+str(datetime.now().strftime('%m'))
+    output_type='file', auto_open=True, image="png", image_filename="Monthly Graph - Mes: "+str(datetime.now().strftime('%m'))
 )
 
 #data = Data([trace1])

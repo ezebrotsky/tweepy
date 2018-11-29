@@ -79,32 +79,32 @@ layout = Layout(
     height=500,
     width=850
 )
+#
+#plotly.offline.plot(
+#    {"data": 
+#        [go.Scatter(
+#            x=pd.to_datetime(df['Date']),
+#            y=df['Rate'],
+#            mode='lines+markers',
+#            line=dict(
+#            shape='linear'
+#            )
+#        )],
+#        "layout": go.Layout(
+#            title='Seguimiento del precio del dólar durante el mes de '+str(datetime.now().strftime('%B')),
+#            xaxis=XAxis( type='date', title='Día' ),
+#            yaxis=YAxis( title='Valor ($ ARS)', automargin=True, range=[30, 42] ),
+#            height=500,
+#            width=850
+#        )
+#    },
+#    output_type='file', auto_open=True, image="png", image_filename="Monthly Graph - Mes: "+str(datetime.now().strftime('%m'))
+#)
 
-plotly.offline.plot(
-    {"data": 
-        [go.Scatter(
-            x=pd.to_datetime(df['Date']),
-            y=df['Rate'],
-            mode='lines+markers',
-            line=dict(
-            shape='linear'
-            )
-        )],
-        "layout": go.Layout(
-            title='Seguimiento del precio del dólar durante el mes de '+str(datetime.now().strftime('%B')),
-            xaxis=XAxis( type='date', title='Día' ),
-            yaxis=YAxis( title='Valor ($ ARS)', automargin=True, range=[30, 42] ),
-            height=500,
-            width=850
-        )
-    },
-    output_type='file', auto_open=True, image="png", image_filename="Monthly Graph - Mes: "+str(datetime.now().strftime('%m'))
-)
+data = Data([trace1])
+fig = Figure(data=data, layout=layout)
 
-#data = Data([trace1])
-#fig = Figure(data=data, layout=layout)
-
-#pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
+pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
 
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'

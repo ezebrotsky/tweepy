@@ -110,5 +110,5 @@ pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime(
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'
 
 #api.update_status(mensaje)
-#api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
+api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
 #print(mensaje)

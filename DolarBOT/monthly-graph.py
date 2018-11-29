@@ -55,6 +55,8 @@ mycursor = mydb.cursor()
 mycursor.execute("select date(date), max(rate) from rates WHERE date(date) BETWEEN LAST_DAY(NOW() - INTERVAL 1 MONTH) + INTERVAL 1 DAY AND NOW() group by date(date) order by date(date);")
 result = mycursor.fetchall()
 
+# Armo el gráfico
+
 locale.setlocale(locale.LC_TIME, 'es_AR.utf8')
 
 if not os.path.exists('images'):
@@ -80,30 +82,25 @@ layout = Layout(
     height=500,
     width=850
 )
-#
-#plotly.offline.plot(
-#    {"data": 
-#        [go.Scatter(
-#            x=pd.to_datetime(df['Date']),
-#            y=df['Rate'],
-#            mode='lines+markers',
-#            line=dict(
-#            shape='linear'
-#            )
-#        )],
-#        "layout": go.Layout(
-#            title='Seguimiento del precio del dólar durante el mes de '+str(datetime.now().strftime('%B')),
-#            xaxis=XAxis( type='date', title='Día' ),
-#            yaxis=YAxis( title='Valor ($ ARS)', automargin=True, range=[30, 42] ),
-#            height=500,
-#            width=850
-#        )
-#    },
-#    output_type='file', auto_open=True, image="png", image_filename="Monthly Graph - Mes: "+str(datetime.now().strftime('%m'))
-#)
 
 data = Data([trace1])
 fig = Figure(data=data, layout=layout)
+
+# Mensaje para el DM
+
+event = {
+  "event": {
+    "type": "message_create",
+    "message_create": {
+      "target": {
+        "recipient_id": '156371414'
+      },
+      "message_data": {
+        "text": 'No se pudo tuitear la imagen brother'
+      }
+    }
+  }
+}
 
 try:
     pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
@@ -111,12 +108,7 @@ try:
     print("Se subio la imagen correctamente Wii :)")
 except ConnectionError as e:
     print(e)
-    api.send_direct_message_new('156371414', "No se pudo tuitear la imagen bro")
+    api.send_direct_message_new(event)
     api.update_status("No se pudo tuitear la imagen")
+
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
-
-mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'
-
-#api.update_status(mensaje)
-
-#print(mensaje)

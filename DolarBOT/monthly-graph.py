@@ -103,13 +103,13 @@ event = {
 }
 
 try:
-    api.send_direct_message_new(event)
-    #pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
-    #api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
+    #api.send_direct_message_new(event)
+    pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
+    api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
     print("Se subio la imagen correctamente Wii :)")
 except ConnectionError as e:
     print(e)
-    api.send_direct_message_new(event)
     api.update_status("No se pudo tuitear la imagen")
+    api.send_direct_message_new(event)
 
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))

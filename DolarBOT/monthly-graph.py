@@ -111,7 +111,7 @@ try:
 except ConnectionError as e:
     print(e)
     api.update_status("No se pudo tuitear la imagen")
-    api.send_direct_message(156371414, "No se pudo tuitear la imagen bro")
+    api.send_direct_message('ezebrotsky', "No se pudo tuitear la imagen bro")
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
 
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'

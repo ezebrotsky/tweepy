@@ -2,6 +2,7 @@
 from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 from plotly.graph_objs import *
+from request.exceptions import ConnectionError
 
 import tweepy, urllib, json, mysql.connector, plotly.plotly as py, pandas as pd, locale, os, numpy as np
 import plotly.io as pio
@@ -104,7 +105,10 @@ layout = Layout(
 data = Data([trace1])
 fig = Figure(data=data, layout=layout)
 
-pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
+try:
+    pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
+except ConnectionError as e:
+    print(e)
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
 
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'

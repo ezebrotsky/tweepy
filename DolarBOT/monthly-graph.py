@@ -108,10 +108,11 @@ fig = Figure(data=data, layout=layout)
 try:
     pio.write_image(fig, 'images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png')
     api.update_with_media('images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png', '¡Mirá el resúmen mensual de la evolución del precio del dólar!')
+    print("Se subio la imagen correctamente Wii :)")
 except ConnectionError as e:
     print(e)
-    api.update_status("No se pudo tuitear la imagen")
     api.send_direct_message('ezebrotsky', "No se pudo tuitear la imagen bro")
+    api.update_status("No se pudo tuitear la imagen")
 #py.iplot(fig, filename='Monthly Graph - Mes: '+str(datetime.now().strftime('%m')))
 
 mensaje = 'Imagen guardada: "images/Monthly Graph - Mes: '+str(datetime.now().strftime('%m'))+'.png"'

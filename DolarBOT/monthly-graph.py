@@ -2,7 +2,7 @@
 from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 from plotly.graph_objs import *
-from request.exceptions import ConnectionError
+from requests import ConnectionError
 
 import tweepy, urllib, json, mysql.connector, plotly.plotly as py, pandas as pd, locale, os, numpy as np
 import plotly.io as pio

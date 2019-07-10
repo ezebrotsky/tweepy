@@ -111,6 +111,6 @@ else:
 #print(variacion)
 #print(items)
 
-api.update_status(status='Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
-#print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n(Actualizado: '+dateFormat+')')
+api.update_status(status='Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar')
+#print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar')
 

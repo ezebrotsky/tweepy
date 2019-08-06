@@ -108,9 +108,10 @@ if variacion > 0:
 else:
 	sign = ""
 
-#print(variacion)
-#print(items)
+### Al valor le agrego 0.99$ para mostrar el valor de los bancos
 
-api.update_status(status='Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar')
-#print(mensaje+' $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar')
+status = 'Valor actual: $'+str(round(rate, 3) + 0.99).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar'
+
+api.update_status(status=status)
+#print(status)
 

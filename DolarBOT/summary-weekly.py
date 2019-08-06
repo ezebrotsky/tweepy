@@ -59,7 +59,7 @@ items2 = []
 for y in result2:
 	items2.append({'date': y[0].strftime('%d/%m/%Y'), 'rate': y[1]})
 
-mensaje = "Resumen de la semana: \nEl valor máximo que tomó el dólar fue de $" + str(round(items[0]['rate'], 3)).replace(".", ",") + " el " + items[0]['date'] + ".\nMientras que el mínimo fue de $" + str(round(items2[0]['rate'], 3)).replace(".", ",") + " el " + items2[0]['date'] + "."
+mensaje = "Resumen de la semana: \nEl valor máximo que tomó el dólar fue de $" + str(round(items[0]['rate'], 3) + 0.99).replace(".", ",") + " el " + items[0]['date'] + ".\nMientras que el mínimo fue de $" + str(round(items2[0]['rate'], 3) + 0.99).replace(".", ",") + " el " + items2[0]['date'] + "."
 #print(mensaje)
 
 api.update_status(mensaje)

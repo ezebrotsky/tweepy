@@ -43,7 +43,7 @@ soup = BeautifulSoup(r.text, "html.parser")
 
 now = datetime.now()
 
-date = now
+date = now - timedelta(hours=3) 
 unformatedRate = soup.findAll('span')[2].get_text()
 
 unformatedRate = unformatedRate.replace("$ ", "")
@@ -77,16 +77,6 @@ result2 = mycursor.fetchall()
 items2 = []
 for y in result2:
         items2.append({'date': y[0], 'rate': y[1]})
-
-if round(items2[0]['rate'], 3) <= round(items2[1]['rate'], 3):
-        subio = "No"
-	mensaje = "No, desde el último Tweet bajó a"
-	
-	if round(items2[0]['rate'], 3) == round(items2[1]['rate'], 3):
-		mensaje = "No, desde el último Tweet se mantuvo en"
-else:
-        subio = "Sí"
-	mensaje = "Sí, desde el último Tweet subió a"
 
 # SELECCIONA EL ULTIMO VALOR DE CADA DIA PARA HACER LA VARIACION PORCENTUAL
 mycursor.execute("select date, rate from rates inner join ( select max(date) as max from rates group by date(date) ) rates2 on rates.date = rates2.max order by date desc;")

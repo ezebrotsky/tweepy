@@ -51,7 +51,7 @@ items = []
 for x in result:
 	items.append({'date': x[0], 'rate': x[1]})
 
-mensaje = "El valor máximo que tomó el dólar hoy fue de $"+str(round(items[0]['rate'], 3)).replace(".", ",")
+mensaje = "Valor máximo de hoy: $"+str(round(items[0]['rate'], 3)).replace(".", ",")+". \n\n#Dólar"
 #print(mensaje)
 
 api.update_status(mensaje)

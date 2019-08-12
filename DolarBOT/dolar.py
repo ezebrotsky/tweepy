@@ -105,6 +105,6 @@ else:
 
 status = 'Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar'
 
-#api.update_status(status=status)
-print(status)
+api.update_status(status=status)
+#print(status)
 

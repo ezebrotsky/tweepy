@@ -4,6 +4,9 @@ from datetime import datetime, timedelta
 
 import tweepy, urllib, json, mysql.connector
 
+import requests
+from bs4 import BeautifulSoup
+
 # == OAuth Authentication ==
 #
 # This mode of authentication is the new preferred way
@@ -33,21 +36,18 @@ api = tweepy.API(auth)
 
 # API Core
 
-key      = "82fc949924e0a8b25408bb7775a5cc74"
-url      = "http://data.fixer.io/api/latest?access_key="+key+"&symbols=ARS,USD"
-response = urllib.urlopen(url)
-data     = json.loads(response.read())
+## Tomo valor de dolarhoy.
+r = requests.get('http://dolarhoy.com/')
 
-ARS       = data['rates']['ARS']
-USD       = data['rates']['USD']
-timestamp = data['timestamp']
-date      = datetime.utcfromtimestamp(timestamp) - timedelta(hours=3) 
+soup = BeautifulSoup(r.text, "html.parser")
 
-dateFormat = date.strftime('%H:%M %d/%m/%Y')
+now = datetime.now()
 
-rate =  ARS / USD
+date = now
+unformatedRate = soup.findAll('span')[2].get_text()
 
-print(round(rate, 4))
+unformatedRate = unformatedRate.replace("$ ", "")
+rate = float(unformatedRate.replace(",", "."))
 
 # GUARDA EN LA BD
 mydb = mysql.connector.connect(
@@ -96,11 +96,6 @@ items = []
 for x in result:
 	items.append({'date': x[0], 'rate': x[1]})
 
-if round(items[0]['rate'], 3) < round(items[1]['rate'], 3):
-	print("La de hoy es menor que la de ayer")
-else:
-	print("La de hoy es mayor que la de ayer")
-
 variacion = ((round(items[0]['rate'], 3) - round(items[1]['rate'], 3)) / round(items[1]['rate'], 3)) * 100
 
 if variacion > 0:
@@ -108,10 +103,8 @@ if variacion > 0:
 else:
 	sign = ""
 
-### Al valor le agrego 0.99$ para mostrar el valor de los bancos
+status = 'Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar'
 
-status = 'Valor actual: $'+str(round(rate, 3) + 0.99).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar'
-
-api.update_status(status=status)
-#print(status)
+#api.update_status(status=status)
+print(status)
 

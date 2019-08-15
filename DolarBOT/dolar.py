@@ -90,10 +90,26 @@ variacion = ((round(items[0]['rate'], 3) - round(items[1]['rate'], 3)) / round(i
 
 if variacion > 0:
 	sign = "+"
+
+	## Emoji pensativo
+	emoji = u"\U0001F914"
+	if variacion > 2:
+		## Emoji cara al reves
+		emoji = u"\U0001F643"
 else:
 	sign = ""
 
-status = 'Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. \n\n#Dólar'
+	## Emoji lengua usd
+	emoji = u"\U0001F911"
+
+## Graph
+emojiGraph = u"\U0001F4C8"
+## Dolar
+emojiDolar = u"\U0001F4B5"
+## Dolar volando
+emojiDolarVolando = u"\U0001F4B8"
+
+status = 'Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. ' + emoji + ' \n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
 
 api.update_status(status=status)
 #print(status)

@@ -11,14 +11,14 @@ import tweepy, urllib, json, mysql.connector
 
 # The consumer keys can be found on your application's Details
 # page located at https://dev.twitter.com/apps (under "OAuth settings")
-consumer_key="aMTwTJCOPjPjJQcgIS7VPTJIG"
-consumer_secret="8WQh12NTKbJfmWt2LuaojT8QXGEgBrA4v3fCCwHeXeN75ZXeiO"
+consumer_key="bUxH0cgHZNEaVVYkWnSwRGEat"
+consumer_secret="SDjn7TCSEn1RgGmnl5GSYkPqbCx75r0tIglrtqya79KzitgyjV"
 
 # The access tokens can be found on your applications's Details
 # page located at https://dev.twitter.com/apps (located
 # under "Your access token")
-access_token="1034524014478286849-aE0ax20mOESZ4XAxpiURH3e8gXxdTh"
-access_token_secret="tXJL3TlIWi2KCoGfWtD4qwNpz7UeNo7tYiEEyxPLglFC2"
+access_token="762291883-o6jZ4kAmT6lC33qJxKZiMddppAKlZSgKmsyiH0NH"
+access_token_secret="prxVwl5XasAPwWtyshd450peSSybZdDv76W3sSvBqGmQR"
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -33,32 +33,22 @@ api = tweepy.API(auth)
 
 # API Core
 
-# CONECTA LA BD
-mydb = mysql.connector.connect(
-	host = "localhost",
-	user = "root",
-	passwd = "root",
-	database = "DolarBOT"
-)
-
-mycursor = mydb.cursor()
-
-# SELECCIONA EL MAXIMO VALOR DEL DIA
-mycursor.execute("select date(date), max(rate) from rates group by date(date) order by date(date) desc limit 1;")
-result = mycursor.fetchall()
-
-items = []
-for x in result:
-	items.append({'date': x[0], 'rate': x[1]})
-
-## Graph
-emojiGraph = u"\U0001F4C8"
-## Dolar
-emojiDolar = u"\U0001F4B5"
-## Dolar volando
-emojiDolarVolando = u"\U0001F4B8"
-
-mensaje = "Valor máximo de hoy: $"+str(round(items[0]['rate'], 3)).replace(".", ",")+". \n\n#Dólar "  + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
+#mensaje = "Valor máximo de hoy: $"+str(round(items[0]['rate'], 3)).replace(".", ",")+". \n\n#Dólar"
 #print(mensaje)
+
+## Emoji pensativo
+emoji1 = u"\U0001F914"
+## Emoji cara al reves
+emoji2 = u"\U0001F643"
+## Emoji lengua usd
+emoji3 = u"\U0001F911"
+## Graph
+emoji4 = u"\U0001F4C8"
+## Dolar
+emoji5 = u"\U0001F4B5"
+## Dolar volando
+emoji6 = u"\U0001F4B8"
+
+mensaje = emoji1 + " " + emoji2 + " " + emoji3 + " " + emoji4 + " " + emoji5 + " " + emoji6
 
 api.update_status(mensaje)

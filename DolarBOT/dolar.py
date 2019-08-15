@@ -6,6 +6,11 @@ import tweepy, urllib, json, mysql.connector
 
 import requests
 from bs4 import BeautifulSoup
+import sys
+
+reload(sys)
+
+sys.setdefaultencoding('utf-8')
 
 # == OAuth Authentication ==
 #

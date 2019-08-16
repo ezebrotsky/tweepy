@@ -3,6 +3,11 @@ from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 
 import tweepy, urllib, json, mysql.connector
+import sys
+
+reload(sys)
+
+sys.setdefaultencoding('utf-8')
 
 # == OAuth Authentication ==
 #

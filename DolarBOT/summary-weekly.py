@@ -3,6 +3,11 @@ from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta
 
 import tweepy, urllib, json, mysql.connector
+import sys
+
+reload(sys)
+
+sys.setdefaultencoding('utf-8')
 
 # == OAuth Authentication ==
 #
@@ -47,19 +52,46 @@ mycursor = mydb.cursor()
 mycursor.execute("select date(date), max(rate) from rates WHERE date(date) BETWEEN DATE_SUB(NOW(), INTERVAL 6 DAY) AND NOW() group by date(date) order by max(rate) desc limit 1;")
 result = mycursor.fetchall()
 
+# SELECCIONA EL ULTIMO VALOR DE LA SEMANA PASADA
+mycursor.execute("select date(date), max(rate) from rates WHERE date(date) BETWEEN DATE_SUB(NOW(), INTERVAL 14 DAY) AND DATE_SUB(NOW(), INTERVAL 6 DAY) group by date(date) order by date(date) desc limit 1;")
+result2 = mycursor.fetchall()
+
 items = []
 for x in result:
 	items.append({'date': x[0].strftime('%d/%m/%Y'), 'rate': x[1]})
 
-# SELECCIONA EL MINIMO VALOR DE LA SEMANA
-mycursor.execute("select date(date), max(rate) from rates WHERE date(date) BETWEEN DATE_SUB(NOW(), INTERVAL 6 DAY) AND NOW() group by date(date) order by max(rate) limit 1;")
-result2 = mycursor.fetchall()
-
 items2 = []
-for y in result2:
-	items2.append({'date': y[0].strftime('%d/%m/%Y'), 'rate': y[1]})
+for x in result2:
+	items2.append({'date': x[0].strftime('%d/%m/%Y'), 'rate': x[1]})
 
-mensaje = "Resumen de la semana: \nEl valor máximo que tomó el dólar fue de $" + str(round(items[0]['rate'], 3)).replace(".", ",") + " el " + items[0]['date'] + ".\nMientras que el mínimo fue de $" + str(round(items2[0]['rate'], 3)).replace(".", ",") + " el " + items2[0]['date'] + "."
+variacion = ((items[0]['rate'] - items2[0]['rate']) / items2[0]['rate']) * 100
+
+if variacion > 0:
+	sign = "+"
+
+	## Emoji pensativo
+	emoji = u"\U0001F914"
+	if variacion > 5:
+		## Emoji cara al reves
+		emoji = u"\U0001F643"
+	
+	if variacion > 10:
+		## Emoji gritandoo
+		emoji = u"\U0001F631"
+else:
+	sign = ""
+
+	## Emoji lengua usd
+	emoji = u"\U0001F911"
+
+## Graph
+emojiGraph = u"\U0001F4C8"
+## Dolar
+emojiDolar = u"\U0001F4B5"
+## Dolar volando
+emojiDolarVolando = u"\U0001F4B8"
+
+mensaje = "El dólar esta semana llegó a $" + str(round(items[0]['rate'], 3)).replace(".", ",") + '\n('+sign+str(round(variacion, 2))+'%) respecto a la semana pasada. ' + emoji + ' \n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
 #print(mensaje)
 
 api.update_status(mensaje)

@@ -1,7 +1,15 @@
 import mysql.connector
 
 lista = [
-    'sur', 'gil', 'doc', 'lol', 'toc','tic','sum',
+    'hbo',
+	'bit',
+	'pov',
+	'nic',
+	'sex',
+	'yen',
+	'app',
+	'bro',
+	'fmi'
 ]
 
 # GUARDA EN LA BD

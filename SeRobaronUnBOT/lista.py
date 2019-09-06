@@ -2,6 +2,10 @@ import mysql.connector
 
 lista = [
     'cck',
+	'eee',
+	'fav',
+	'pro',
+	'usd',
 	
 ]
 

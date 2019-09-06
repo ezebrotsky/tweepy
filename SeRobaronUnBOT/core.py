@@ -43,7 +43,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 # SELECCIONA UN ACRONIMO QUE NO HAYA SIDO LEIDO
-mycursor.execute("select acronimo, id from acronimos where leido = 0 order by id asc limit 1")
+mycursor.execute("select acronimo, id from acronimos where leido = 0 ORDER BY RAND() limit 1")
 result = mycursor.fetchall()
 
 status = ""
@@ -58,4 +58,4 @@ else:
 
 if status != "":
 	api.update_status(status=status)
-print(status)
+	print(status)

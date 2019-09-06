@@ -1,7 +1,11 @@
 import mysql.connector
 
 lista = [
-    'lsd','gas','diu','ceo','año'
+    'lsd',
+	'gas',
+	'diu',
+	'ceo',
+	'año',
 ]
 
 # GUARDA EN LA BD

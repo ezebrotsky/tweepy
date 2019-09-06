@@ -61,7 +61,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 mycursor.execute(
-    "CREATE TABLE IF NOT EXISTS `acronimos` (`id` INT NOT NULL AUTO_INCREMENT,`acronimo` VARCHAR(4) NOT NULL,`leido` TINYINT NOT NULL DEFAULT 0,PRIMARY KEY (`id`),UNIQUE INDEX `acronimo_UNIQUE` (`acronimo` ASC) VISIBLE)"
+    "CREATE TABLE IF NOT EXISTS `acronimos` (`id` INT NOT NULL AUTO_INCREMENT,`acronimo` VARCHAR(4) NOT NULL,`leido` TINYINT NOT NULL DEFAULT 0,PRIMARY KEY (`id`),UNIQUE INDEX `acronimo_UNIQUE` (`acronimo` ASC))"
 )
 for item in lista:
     mycursor.execute("INSERT IGNORE INTO acronimos (acronimo) VALUES ('"+item+"')")

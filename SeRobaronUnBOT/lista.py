@@ -5,7 +5,6 @@ lista = [
 	'gas',
 	'diu',
 	'ceo',
-	'año',
 ]
 
 # GUARDA EN LA BD

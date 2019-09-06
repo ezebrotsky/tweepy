@@ -6,6 +6,8 @@ lista = [
 	'fav',
 	'pro',
 	'usd',
+	'gol',
+	'ron',
 	
 ]
 

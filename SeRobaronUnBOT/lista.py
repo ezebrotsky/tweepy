@@ -49,6 +49,8 @@ lista = [
     'xml',
     'ftp',
     'rey',
+	'cat',
+	
 ]
 
 # GUARDA EN LA BD

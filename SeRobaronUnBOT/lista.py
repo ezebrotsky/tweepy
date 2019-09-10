@@ -1,15 +1,13 @@
 import mysql.connector
 
 lista = [
-    'hbo',
-	'bit',
-	'pov',
-	'nic',
-	'sex',
-	'yen',
-	'app',
-	'bro',
-	'fmi'
+    'pbt',
+	'gps',
+	'adn',
+	'eze',
+	'bar',
+	'puf',
+	'mba',
 ]
 
 # GUARDA EN LA BD

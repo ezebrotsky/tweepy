@@ -70,7 +70,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 mycursor.execute("CREATE TABLE IF NOT EXISTS rates (id INT AUTO_INCREMENT PRIMARY KEY, date DATETIME, rate FLOAT)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS ratesBlue (id INT AUTO_INCREMENT PRIMARY KEY, date DATETIME, rate VARCHAR(5), var VARCHAR(5))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS ratesBlue (id INT AUTO_INCREMENT PRIMARY KEY, date DATETIME, rate VARCHAR(5), var VARCHAR(6))")
 
 sql = "INSERT INTO rates (date, rate) VALUES (%s, %s)"
 val = (date, rate)

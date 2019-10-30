@@ -63,7 +63,7 @@ emojiDolar = u"\U0001F4B5"
 ## Dolar volando
 emojiDolarVolando = u"\U0001F4B8"
 
-mensaje = "Valor máximo de hoy: $"+str(round(items[0]['rate'], 3)).replace(".", ",")+". \n\n#Dólar "  + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
+mensaje = "Valor máximo del oficial: $"+str(round(items[0]['rate'], 3)).replace(".", ",")+". \n\n#Dólar "  + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
 #print(mensaje)
 
 api.update_status(mensaje)

@@ -54,6 +54,11 @@ unformatedRate = soup.findAll('span')[2].get_text()
 unformatedRate = unformatedRate.replace("$ ", "")
 rate = float(unformatedRate.replace(",", "."))
 
+## Valor del blue de ámbito.
+jsonAmbito = requests.get('https://mercados.ambito.com//dolar/informal/variacion').json()
+dolarBlue = jsonAmbito['venta']
+blueVariacion = jsonAmbito['variacion']
+
 # GUARDA EN LA BD
 mydb = mysql.connector.connect(
 	host = "localhost",
@@ -65,11 +70,16 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 mycursor.execute("CREATE TABLE IF NOT EXISTS rates (id INT AUTO_INCREMENT PRIMARY KEY, date DATETIME, rate FLOAT)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS ratesBlue (id INT AUTO_INCREMENT PRIMARY KEY, date DATETIME, rate VARCHAR(5), var VARCHAR(5))")
 
 sql = "INSERT INTO rates (date, rate) VALUES (%s, %s)"
 val = (date, rate)
 
+sqlBlue = "INSERT INTO ratesBlue (date, rate, var) VALUES (%s, %s, %s)"
+valBlue = (date, dolarBlue, blueVariacion)
+
 mycursor.execute(sql, val)
+mycursor.execute(sqlBlue, valBlue)
 
 mydb.commit()
 
@@ -107,6 +117,8 @@ else:
 	## Emoji lengua usd
 	emoji = u"\U0001F911"
 
+## Blue
+emojiBlue = u"\U0001F535"
 ## Graph
 emojiGraph = u"\U0001F4C8"
 ## Dolar
@@ -114,7 +126,7 @@ emojiDolar = u"\U0001F4B5"
 ## Dolar volando
 emojiDolarVolando = u"\U0001F4B8"
 
-status = 'Valor actual: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. ' + emoji + ' \n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
+status = 'Dólar oficial: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. ' + emoji + ' \n\nDólar Blue: $' + dolarBlue + '. ' + emojiBlue + '\nVariación: ' + blueVariacion + '\n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
 
 api.update_status(status=status)
 #print(status)

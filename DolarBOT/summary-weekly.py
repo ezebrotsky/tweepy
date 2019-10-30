@@ -91,7 +91,7 @@ emojiDolar = u"\U0001F4B5"
 ## Dolar volando
 emojiDolarVolando = u"\U0001F4B8"
 
-mensaje = "El dólar esta semana llegó a $" + str(round(items[0]['rate'], 3)).replace(".", ",") + '\n('+sign+str(round(variacion, 2))+'%) respecto a la semana pasada. ' + emoji + ' \n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
+mensaje = "El dólar oficial esta semana llegó a $" + str(round(items[0]['rate'], 3)).replace(".", ",") + '\n('+sign+str(round(variacion, 2))+'%) respecto a la semana pasada. ' + emoji + ' \n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
 #print(mensaje)
 
 api.update_status(mensaje)

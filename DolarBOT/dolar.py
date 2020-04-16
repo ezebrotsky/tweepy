@@ -49,7 +49,7 @@ soup = BeautifulSoup(r.text, "html.parser")
 now = datetime.now()
 
 date = now - timedelta(hours=3) 
-unformatedRate = soup.findAll('span')[2].get_text()
+unformatedRate = soup.findAll('span')[5].get_text()
 
 unformatedRate = unformatedRate.replace("$ ", "")
 rate = float(unformatedRate.replace(",", "."))
@@ -129,5 +129,5 @@ emojiDolarVolando = u"\U0001F4B8"
 status = 'Dólar oficial: $'+str(round(rate, 3)).replace(".", ",")+'. \n('+sign+str(round(variacion, 2))+'%) respecto al día de ayer. ' + emoji + ' \n\nDólar Blue: $' + dolarBlue + '. ' + emojiBlue + '\nVariación: ' + blueVariacion + '\n\n#Dólar ' + emojiGraph + ' ' + emojiDolar + ' ' + emojiDolarVolando
 
 api.update_status(status=status)
-#print(status)
+# print(status)
 

@@ -49,7 +49,7 @@ soup = BeautifulSoup(r.text, "html.parser")
 now = datetime.now()
 
 date = now - timedelta(hours=3) 
-unformatedRate = soup.findAll('span')[5].get_text()
+unformatedRate = soup.findAll('span')[2].get_text()
 
 unformatedRate = unformatedRate.replace("$ ", "")
 rate = float(unformatedRate.replace(",", "."))
